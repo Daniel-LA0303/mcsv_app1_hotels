@@ -1,0 +1,28 @@
+
+server:
+  port: 8083
+
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://root:root@cluster0.odotr.mongodb.net
+      database: 13_spring_mcsv_pro1
+
+  application:
+    name: CALIFICACION-SERVICE
+
+  config:
+    import: optional:configserver:http://localhost:8885
+
+  #eureka:
+   # instance:
+    #  prefer-ip-address: true
+    #client:
+     # fetch-registry: true
+      #register-with-eureka: true
+      #service-url:
+       # defaultZone: http://localhost:8761/eureka
+
+
+

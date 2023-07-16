@@ -1,0 +1,68 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_mcsv_4
+    username: root
+    password: 1234
+    driver: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  application:
+    name: USUARIO-SERVICE
+
+  # configuracion nueva
+  config:
+    import: optional:configserver:http://localhost:8885
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+    endpoints:
+      web:
+        exposure:
+          include: health
+
+    endpoint:
+      health:
+        show-details: always
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingHotelBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 6s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+
+    #config de retry
+    retry:
+      instances:
+        ratingHotelService:
+          max-attempts: 3
+          wait-duration: 5s
+
+
+# configuracion anterior
+#eureka:
+  #instance:
+   # prefer-ip-address: true
+  #client:
+   # fetch-registry: true
+   # register-with-eureka: true
+   # service-url:
+    #  defaultZone: http://localhost:8761/eureka
