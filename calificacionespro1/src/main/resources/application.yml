@@ -12,6 +12,7 @@ spring:
   application:
     name: CALIFICACION-SERVICE
 
+  # config cloud
   config:
     import: optional:configserver:http://localhost:8885
 

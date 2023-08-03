@@ -30,16 +30,17 @@ public class AuthService {
 
     // aqui se guarda el usuario
     public AuthUser save(NewUserDto authUserDto){
+        //first we check if the user already exists
         Optional<AuthUser> user = authUserRepository.findByUserName(authUserDto.getUserName());
-
+        //if the user exists we throw an exception
         if (user.isPresent()){
             throw new RuntimeException("User already exists");
         }
 
-        // aqui se encripta la contraseña
+        // here we encode the password
         String password = passwordEncoder.encode(authUserDto.getPassword());
 
-        // aqui se crea el usuario
+        // here we create the user
         AuthUser authUser = AuthUser.builder()
                 .userName(authUserDto.getUserName())
                 .password(password)
@@ -49,7 +50,7 @@ public class AuthService {
         return authUserRepository.save(authUser);
     }
 
-    // aqui se loguea el usuario
+    // here we login
     public TokenDto login(AuthUserDto authUserDto){
         Optional<AuthUser> user = authUserRepository.findByUserName(authUserDto.getUserName());
 
@@ -57,14 +58,13 @@ public class AuthService {
             throw new RuntimeException("User does not exist");
         }
 
-        // aqui se valida la contraseña
+        // here we validate the password
         if (!passwordEncoder.matches(authUserDto.getPassword(), user.get().getPassword())){
             throw new RuntimeException("Invalid credentials");
 
         }
 
-        // Generar el token JWT
-        // Generar el token JWT utilizando el método createToken
+        // generate the JWT token using the createToken method
         String token = jtwProvider.createToken(user.get());
 
         TokenDto tokenDto = new TokenDto();
@@ -76,13 +76,14 @@ public class AuthService {
 
     // aqui se valida el token
     public TokenDto validate(String token, RequestDto requestDto){
-        // aqui se valida el token
+        // here we validate the token with the validate method from the JtwProvider class
         if (!jtwProvider.validate(token, requestDto)){
             throw new RuntimeException("Invalid token");
         }
-
+        //we get the username from the token
         String userName = jtwProvider.getUserNameFromToken(token);
 
+        //we check if the user exists
         if(!authUserRepository.findByUserName(userName).isPresent()){
             throw new RuntimeException("User does not exist");
         }

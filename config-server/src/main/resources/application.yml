@@ -5,6 +5,8 @@ spring:
   application:
     name: CONFIG-SERVER
 
+#create a git repository and add the following files
+#this is a cloud config server
   cloud:
     config:
       server:

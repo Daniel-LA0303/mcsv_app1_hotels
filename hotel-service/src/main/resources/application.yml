@@ -15,7 +15,7 @@ spring:
     application:
         name: HOTEL-SERVICE
 
-# configuracion nueva
+    # config cloud
     config:
         import: optional:configserver:http://localhost:8885
 

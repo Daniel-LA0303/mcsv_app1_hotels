@@ -10,15 +10,15 @@ spring:
     gateway:
       routes:
         - id: USER-SERVICE
-          uri: lb://USUARIO-SERVICE
-          predicates:
+          uri: lb://USUARIO-SERVICE #name of the service in eureka
+          predicates: #conditions or toutes
             - Path=/users/**
           filters:
             - AuthFilter
         - id: HOTEL-SERVICE
           uri: lb://HOTEL-SERVICE
           predicates:
-            - Path=/hotels/**,/staffs/**
+            - Path=/hotels/**,/staffs/** #multiple paths to controllers
         - id: CALIFICACION-SERVICE
           uri: lb://CALIFICACION-SERVICE
           predicates:
@@ -27,6 +27,7 @@ spring:
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/auth/**
+#configuration for eureka
 eureka:
   instance:
     prefer-ip-address: true

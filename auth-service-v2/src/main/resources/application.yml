@@ -5,6 +5,7 @@ server:
 spring:
   application:
     name: AUTH-SERVICE
+  # config cloud
   config:
     import: optional:configserver:http://localhost:8885
 
@@ -12,6 +13,8 @@ spring:
 jwt:
   secret: secret
 
+# this is to the config server
+# just the method post is for the admins
 admin-paths:
   paths:
     -

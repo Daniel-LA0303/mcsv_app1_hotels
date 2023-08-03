@@ -14,6 +14,8 @@ public class WebClientConfig {
     * configuration for at a certain time called this configuration
     * and be able to communicate with other services
     * */
+
+    //to make any request to other services we need to use the webclient
     @Bean
     @LoadBalanced
     public WebClient.Builder builder(){

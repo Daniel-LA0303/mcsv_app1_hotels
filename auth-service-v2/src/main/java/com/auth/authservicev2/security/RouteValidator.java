@@ -25,7 +25,8 @@ public class RouteValidator {
     //metodo que valida si la ruta es de administrador
     public boolean isAdmin(RequestDto requestDto){
 
-        return paths.stream().anyMatch(path ->
+        //just the method post is for the admins
+        return paths.stream().anyMatch(path -> //stram is a sequence of elements supporting sequential and parallel aggregate operations
                 Pattern.matches(path.getUri(), requestDto.getUri()) &&
                         path.getMethod().equals(requestDto.getMethod()));
 
