@@ -6,6 +6,7 @@ import com.api.gateway.apigateway.dto.TokenDto;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,12 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
     @Override
     public GatewayFilter apply(Config config) {
         return ((((exchange, chain) -> { // lambda expression
+
+            //this fragment of code permits do get request without token
+            if (exchange.getRequest().getMethod() == HttpMethod.GET) {
+                return chain.filter(exchange);
+            }
+
             //exchange represents the actual request and chain represents the chain of filters that will be applied to the request.
             if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) // here we are checking if the request contains the authorization header
                 return onError(exchange, HttpStatus.BAD_REQUEST);

@@ -13,16 +13,20 @@ spring:
           uri: lb://USUARIO-SERVICE #name of the service in eureka
           predicates: #conditions or toutes
             - Path=/users/**
-          filters:
+          filters: #filters to the routes
             - AuthFilter
         - id: HOTEL-SERVICE
           uri: lb://HOTEL-SERVICE
           predicates:
             - Path=/hotels/**,/staffs/** #multiple paths to controllers
+          filters: #filters to the routes
+            - AuthFilter
         - id: CALIFICACION-SERVICE
           uri: lb://CALIFICACION-SERVICE
           predicates:
             - Path=/calificaciones/**
+          filters: #filters to the routes
+            - AuthFilter
         - id: AUTH-SERVICE
           uri: lb://AUTH-SERVICE
           predicates:

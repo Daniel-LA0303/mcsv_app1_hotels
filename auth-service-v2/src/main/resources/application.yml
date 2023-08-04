@@ -20,3 +20,9 @@ admin-paths:
     -
       uri: "/users"
       method: "POST"
+    -
+      uri: "/hotels"
+      method: "POST"
+    -
+      uri: "/calificaciones"
+      method: "POST"
