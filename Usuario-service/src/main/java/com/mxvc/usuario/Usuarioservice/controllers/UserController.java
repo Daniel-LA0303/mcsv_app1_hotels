@@ -57,7 +57,7 @@ public class UserController {
         User user = User.builder()
                 .email("correo@correo.com")
                 .name("root")
-                .info("El servicio de calificaciones no esta disponible")
+                .info("Este servicio se ejecuta cuando un servicio falla")
                 .userId("1234")
                 .build();
 

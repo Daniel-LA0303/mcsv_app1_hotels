@@ -42,9 +42,12 @@ resilience4j:
         registerHealthIndicator: true
         eventConsumerBufferSize: 10
         failureRateThreshold: 50
+        #when service failed in the 5th petition, the circuit breaker will be open
         minimumNumberOfCalls: 5
         automaticTransitionFromOpenToHalfOpenEnabled: true
+        #if the circuit breaker is open, it will wait 6 seconds to try again
         waitDurationInOpenState: 6s
+        #if the circuit breaker is half open, it will permit 3 petitions
         permittedNumberOfCallsInHalfOpenState: 3
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED

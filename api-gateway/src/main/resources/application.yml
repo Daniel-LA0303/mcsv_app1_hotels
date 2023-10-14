@@ -10,11 +10,9 @@ spring:
     gateway:
       routes:
         - id: USER-SERVICE
-          uri: lb://USUARIO-SERVICE #name of the service in eureka
+          uri: lb://USUARIO-SERVICE #name of the service in eureka with load balancer
           predicates: #conditions or toutes
             - Path=/users/**
-          filters: #filters to the routes
-            - AuthFilter
         - id: HOTEL-SERVICE
           uri: lb://HOTEL-SERVICE
           predicates:

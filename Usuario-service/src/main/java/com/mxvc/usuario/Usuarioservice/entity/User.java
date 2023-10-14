@@ -28,6 +28,7 @@ public class User {
     @Column(name="info")
     private String info;
 
+    //this is a transient field, it is not going to be persisted in the database
     @Transient
     private List<Calificacion> calificaciones = new ArrayList<>();
 
