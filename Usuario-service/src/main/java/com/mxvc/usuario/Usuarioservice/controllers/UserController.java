@@ -41,7 +41,7 @@ public class UserController {
     int intentos = 1;
 
     @GetMapping("/{userId}")
-    //@CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback") // esto es para el manejo de errores
+    @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback") // esto es para el manejo de errores
     @Retry(name ="ratingHotelService", fallbackMethod = "ratingHotelFallback") // esto es para el manejo de errores
     public ResponseEntity<User> getUserById(@PathVariable String userId){
         log.info("Intento numero: " + intentos);

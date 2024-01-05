@@ -20,6 +20,7 @@ public class JtwProvider {
     @Value("${jwt.secret}")
     private String secret;
 
+    //method that asigns the secret word
     @PostConstruct
     protected void init() {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
